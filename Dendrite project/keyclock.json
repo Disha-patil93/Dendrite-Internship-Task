@@ -1,0 +1,9 @@
+{
+    "realm": "Dendrite project",
+    "auth-server-url": "https://dendriteproject",
+    "ssl-required": "external",
+    "resource": "456",
+    "public-client": true,
+    "confidential-port": 0
+  }
+  

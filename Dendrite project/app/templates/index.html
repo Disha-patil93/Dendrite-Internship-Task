@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dendriteproject</title>
+    
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">ToDo App</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"
+            aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <h2>Add ToDo</h2>
+            <form id="addTodoForm">
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    <input type="text" class="form-control" id="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="time">Time</label>
+                    <input type="text" class="form-control" id="time">
+                </div>
+                <div class="form-group">
+                    <label for="image">Image (Pro License)</label>
+                    <input type="file" class="form-control" id="image" disabled>
+                </div>
+                <button type="submit" class="btn btn-primary">Add ToDo</button>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <h2>ToDo List</h2>
+            <ul id="todoList" class="list-group">
+               
+            </ul>
+        </div>
+    </div>
+</div>
+
+
+<script>
+ 
+document.addEventListener('DOMContentLoaded', function () {
+   
+    const addTodoForm = document.getElementById('addTodoForm');
+
+    addTodoForm.addEventListener('submit', function (event) {
+        
+        event.preventDefault();
+
+      
+        const title = document.getElementById('title').value;
+        const description = document.getElementById('description').value;
+        const time = document.getElementById('time').value;
+
+      
+        const todoData = {
+            title: title,
+            description: description,
+            time: time
+        };
+
+        axios.post('/api/addTodo', todoData)
+            .then(function (response) {
+                
+                console.log('ToDo added successfully:', response.data);
+
+                
+            })
+            .catch(function (error) {
+             
+                console.error('Error adding ToDo:', error);
+
+                
+            });
+    });
+});
+
+</script>
+</body>
+</html>
